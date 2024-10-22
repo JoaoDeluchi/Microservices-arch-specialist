@@ -94,6 +94,16 @@
 ## Service Mesh
 
 - Traffic control.
+- mTLS 
+- Circuit Breaker, retry, timeout, fault injection and etc. 
+
+## Async first 
+
+- Use message brokers / queues always as possible 
+
+## Retry 
+
+- use exponencial backoff and jitter
 
 
 
