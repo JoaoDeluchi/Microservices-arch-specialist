@@ -57,26 +57,26 @@
 
 ## Resilience 
 
-### Intentional Adapt to failure 
+#### Intentional Adapt to failure 
 
-### Strategic approach to minimize risk of losing data, losing transactions and avoid impacting infrastructure 
+#### Strategic approach to minimize risk of losing data, losing transactions and avoid impacting infrastructure 
 
-### Response time should not change. 
+#### Response time should not change. 
 
-### Do not make requests to another system that is not healthy. Dont be selfish. 
+#### Do not make requests to another system that is not healthy. Dont be selfish. 
 
-## Health Check
+### Health Check
 
 - Always make sure that your system and their dependencies are healthy.
 - Avoid request to systems that are not healthy. 
 - Self-healing - an unhealthy system that is not receiving more requests can be healthy after some minutes. 
 
-## Rate limiting 
+### Rate limiting 
 
 - Protect the system based on the number of requests is was designed to handle.
 - It should be based on each customer, focusing on the most important customers. 
 
-## Circuit Braker 
+### Circuit Braker 
 
 - Protect the system returning error when the system is not healthy. 
 - Circuit closed - requests are processed normally.
@@ -84,27 +84,61 @@
 - Half open Circuit - Allows a limited amount of requests to be processed focused on verify if system has condition to close the circuit again. 
 
 
-## Api Gateway 
+### Api Gateway 
 
 - Ensures that inappropriate requests do not reach the system.
 - implements rate limiting, Health check and etc: 
         - Just necessary to create an endpoint that checks the application status and the api gateway will make requests and make sure to protect the api based on that. 
 - Organize microservices in contexts. 
 
-## Service Mesh
+### Service Mesh
 
 - Traffic control.
 - mTLS 
 - Circuit Breaker, retry, timeout, fault injection and etc. 
 
-## Async first 
+### Async first 
 
 - Use message brokers / queues always as possible 
 
-## Retry 
+### Retry 
 
 - use exponencial backoff and jitter
 
+### Transactional Outbox 
+
+- Register on a temporary table the messages that you pretend to send to kafka and remove after succeed.
+
+### Idempotency is fundamental 
+
+### Fallback policy must be clear
+
+### Observability 
+
+- APM (application performance Management)
+- Distributed Trace
+- Custom Metrics 
+- Spans 
 
 
+## Patterns 
+
+### API Composition - Data Composition
+
+- Use service composer to build information. 
+- Able to compose information of different sources. 
+
+- Tradeoff: Increase complexity by creating a service to read other services, Problems with unavailability of dependencies and data consistency. Increase latency. 
+
+### API Composition - Business Rules 
+
+- Use service composer to handle and process other resources. 
+- Resilience is fundamental. 
+
+### Decompose by business capability 
+
+- Spread monolithic by business capability 
+- Domain Driven Design -> Bounded contexts 
+
+### Strangler Application
 
