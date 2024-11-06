@@ -140,5 +140,63 @@
 - Spread monolithic by business capability 
 - Domain Driven Design -> Bounded contexts 
 
-### Strangler Application
+###  Strangler Application
+
+- Every new feature is a new MS. 
+- While create new features in MSs, broke monolithic.
+- Tradeoffs: Comunication with monolithic, necessary a devops culture. 
+- https://microservices.io/patterns/refactoring/strangler-application.html 
+
+
+### ACL - Anti-corruption layer
+
+- Used to prevent that one monolith domain model from polluting the domain model of a new service.
+- A service which translates between two domain models.
+- ex: a interface that implements many payment gateway, but expose just one interface. 
+- obs: its a service and can contain the rules to choose the best gateway or even provides the capability to chose.
+
+### API-Gateway 
+
+- Single entrypoint for MSs. 
+- Implements security, rate limiting. 
+- Can transform and adapt data. 
+- Authentication.
+
+### BFF - Back for front 
+
+- used to prevent that no necessary data is provided to clients. 
+- One service for each type of client(mobile, TV, Desktop, WEB), with the responsability to access MSs and provide just the necessary data. 
+- Can be replaced by using GraphQL(???) 
+
+
+### Database per service
+
+- Private-tables-per-service, each service owns a set of tables that must only be accessed by that service
+- Schema-per-service, each service has a database schema that’s private to that service
+- Database-server-per-service, each service has it’s own database server.
+- Helps ensure that the services are loosely coupled. Changes to one service’s database does not impact any other services.
+- Each service can use the type of database that is best suited to its needs. For example, a service that does text searches could use ElasticSearch. A service that manipulates a social graph could use Neo4j.
+
+#### Reports and info consolidation
+
+- options: 
+        - Generate the report on background and make MSs consolidate the information.
+        - Create a reports micro-service. 
+        - Generate a projected table of reports that can be update by Reports MS or by each MS. Reports-MS may will listening the events and update the reports table. 
+
+### Transactional Outbox 
+
+- before proccess save the data / request in a table, if the proccess is successful remove the data / request from the table.
+- have a proccess that read this table and tries to proccess, when successful remove data from table. 
+- can use a RDMBS(separated Schema), KVS(dynamoDB, MongoDB), Cache (REDIS). 
+
+#### Secret Manager / Vault 
+
+- Service that maintain the credentials and update the keys using some service like lambda. 
+
+#### Logs 
+
+- Standardize logs 
+- SDK 
+
 
