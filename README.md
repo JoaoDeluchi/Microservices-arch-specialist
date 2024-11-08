@@ -199,4 +199,8 @@
 - Standardize logs 
 - SDK 
 
+# C4 - Context 
 
+![alt text](context-c4.png)
+
+# C4 - Container
